@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppProduto</string>
+
+    <string name="txtNome">Nome do Produto:</string>
+    <string name="txtPreco">Preço:</string>
+    <string name="txtSalvar">Salvar</string>
+
+</resources>
