@@ -1,4 +1,4 @@
-package br.pro.adalto.appproduto;
+package br.pro.adalto.appproduto.model;
 
 public class Produto {
 
