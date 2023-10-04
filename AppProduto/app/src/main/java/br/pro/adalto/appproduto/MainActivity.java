@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.pro.adalto.appproduto.dao.ProdutoDAO;
+import br.pro.adalto.appproduto.model.Produto;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText etNome, etPreco;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 salvar();
             }
         });
+
+
+
+
     }
     private void salvar(){
         String nome = etNome.getText().toString();
@@ -38,9 +45,17 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText( this,"Campo Nome é obrigatório!", Toast.LENGTH_LONG).show();
         }else{
             double preco = Double.parseDouble( sPreco );
-            String mensagem = "Produto: " + nome + "\nPreço: "+ preco +
+
+            Produto prod = new Produto( nome, preco);
+            long id = ProdutoDAO.inserir(this, prod);
+
+            etNome.setText("");
+            etPreco.setText("");
+
+            String mensagem = "Produto: " + id + " - " + nome + "\nPreço: "+ preco +
                     "\n\nCadastrado com sucesso!";
             Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+
         }
     }
 

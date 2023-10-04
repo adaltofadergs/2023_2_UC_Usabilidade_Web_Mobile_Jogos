@@ -1,5 +1,7 @@
 package br.pro.adalto.appproduto.model;
 
+import androidx.annotation.NonNull;
+
 public class Produto {
 
     public int id;
@@ -19,5 +21,11 @@ public class Produto {
     public Produto(String nome, double preco) {
         this.nome = nome;
         this.preco = preco;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome + " - " + preco;
     }
 }

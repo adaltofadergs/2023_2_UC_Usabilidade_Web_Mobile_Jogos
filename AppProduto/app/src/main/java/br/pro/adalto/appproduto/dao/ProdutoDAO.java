@@ -13,7 +13,7 @@ import br.pro.adalto.appproduto.model.Produto;
 
 public class ProdutoDAO {
 
-    public static void inserir(Context context, Produto prod){
+    public static long inserir(Context context, Produto prod){
         Banco conn = new Banco(context);
         SQLiteDatabase db = conn.getWritableDatabase();
         //db.execSQL( "INSERT INTO produtos (nome, preco) VALUES " +
@@ -22,7 +22,8 @@ public class ProdutoDAO {
         valores.put("nome", prod.nome);
         valores.put("preco", prod.preco);
 
-        db.insert("produtos" , null, valores);
+        long id = db.insert("produtos" , null, valores);
+        return id;
     }
 
     public static void editar(Context context, Produto prod){
