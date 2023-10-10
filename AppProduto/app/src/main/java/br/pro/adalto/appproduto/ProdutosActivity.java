@@ -1,7 +1,9 @@
 package br.pro.adalto.appproduto;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +50,35 @@ public class ProdutosActivity extends AppCompatActivity {
             }
         });
 
+
+        lvProdutos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                excluir( i );
+                return true;
+            }
+        });
     }
+    private void excluir(int posicao){
+        Produto prod = (Produto) lvProdutos.getItemAtPosition( posicao );
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+        alerta.setTitle("ATENÇÃO!");
+        alerta.setIcon( android.R.drawable.ic_dialog_alert  );
+        alerta.setMessage("Confirma a exclusão do produto "+ prod.nome+"?");
+        alerta.setNeutralButton("Cancelar", null);
+        alerta.setNegativeButton("Não", null);
+        alerta.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ProdutoDAO.excluir(ProdutosActivity.this, prod.id);
+                carregarProdutos();
+            }
+        });
+        alerta.show();
+
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
