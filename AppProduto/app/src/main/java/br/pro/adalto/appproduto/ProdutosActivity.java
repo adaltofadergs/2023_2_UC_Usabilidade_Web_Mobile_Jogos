@@ -75,7 +75,6 @@ public class ProdutosActivity extends AppCompatActivity {
             }
         });
         alerta.show();
-
     }
 
 

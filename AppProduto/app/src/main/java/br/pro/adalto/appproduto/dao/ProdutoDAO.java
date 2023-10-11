@@ -66,7 +66,7 @@ public class ProdutoDAO {
         return lista;
     }
 
-    public static Produto getProdutoById(Context context, int idProd){
+    public static Produto getProdutoById(Context context, long idProd){
         Banco conn = new Banco(context);
         SQLiteDatabase db = conn.getReadableDatabase();
         try {

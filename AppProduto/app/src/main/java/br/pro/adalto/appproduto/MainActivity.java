@@ -16,11 +16,18 @@ public class MainActivity extends AppCompatActivity {
     private EditText etNome, etPreco;
     private Button botaoSalvar;
 
+    private String acao;
+    private Produto produto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        acao = getIntent().getStringExtra("acao");
+        if( acao.equals("editar")){
+            carregarFormulario();
+        }
         etNome = (EditText) findViewById(R.id.etNome);
         etPreco = findViewById(R.id.etPreco);
         botaoSalvar = findViewById(R.id.btnSalvar);
@@ -31,10 +38,12 @@ public class MainActivity extends AppCompatActivity {
                 salvar();
             }
         });
-
-
-
-
+    }
+    private void carregarFormulario(){
+        long id = getIntent().getLongExtra("idProduto" , 0);
+        produto = ProdutoDAO.getProdutoById(this, id );
+        etNome.setText( produto.nome );
+        etPreco.setText( String.valueOf(produto.preco) );
     }
     private void salvar(){
         String nome = etNome.getText().toString();
@@ -46,15 +55,23 @@ public class MainActivity extends AppCompatActivity {
         }else{
             double preco = Double.parseDouble( sPreco );
 
-            Produto prod = new Produto( nome, preco);
-            long id = ProdutoDAO.inserir(this, prod);
+            if( acao.equals("inserir")) {
+                produto = new Produto(nome, preco);
+                long id = ProdutoDAO.inserir(this, produto);
+                String mensagem = "Produto: " + id + " - " + nome + "\nPreço: "+ preco +
+                        "\n\nCadastrado com sucesso!";
+                Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+            }else{
+                produto.nome = nome;
+                produto.preco = preco;
+                ProdutoDAO.editar(this, produto);
+                finish();
+            }
 
             etNome.setText("");
             etPreco.setText("");
 
-            String mensagem = "Produto: " + id + " - " + nome + "\nPreço: "+ preco +
-                    "\n\nCadastrado com sucesso!";
-            Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
+
 
         }
     }
