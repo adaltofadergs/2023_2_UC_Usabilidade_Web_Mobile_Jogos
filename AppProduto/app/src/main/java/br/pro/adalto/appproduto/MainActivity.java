@@ -1,8 +1,18 @@
 package br.pro.adalto.appproduto;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,13 +34,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        etNome = (EditText) findViewById(R.id.etNome);
+        etPreco = findViewById(R.id.etPreco);
+        botaoSalvar = findViewById(R.id.btnSalvar);
+
         acao = getIntent().getStringExtra("acao");
         if( acao.equals("editar")){
             carregarFormulario();
         }
-        etNome = (EditText) findViewById(R.id.etNome);
-        etPreco = findViewById(R.id.etPreco);
-        botaoSalvar = findViewById(R.id.btnSalvar);
 
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +51,63 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.meu_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.itemMenuLimpar){
+            etNome.setText("");
+            etPreco.setText("");
+        }
+
+        if (item.getItemId() == R.id.itemMenuSite){
+            Uri uri = Uri.parse("https://fadergs.edu.br");
+            Intent intent= new Intent(Intent.ACTION_VIEW, uri );
+            startActivity( intent );
+        }
+
+        if (item.getItemId() == R.id.itemMenuLigar){
+            Uri uri = Uri.parse("tel: 51987654321");
+            Intent intent= new Intent(Intent.ACTION_CALL, uri );
+            startActivity( intent );
+        }
+        if (item.getItemId() == R.id.itemMenuTelefone){
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setTitle("Fazer chamada...");
+            EditText etNumero = new EditText(this);
+            etNumero.setHint("Digite o numero do telefone:");
+            etNumero.setInputType(InputType.TYPE_CLASS_PHONE);
+            alerta.setView( etNumero );
+            alerta.setNeutralButton("Cancelar", null);
+            alerta.setPositiveButton("Ligar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String numero = etNumero.getText().toString();
+                    if( !numero.isEmpty() ){
+                        Uri uri = Uri.parse("tel: " + numero);
+                        Intent intent= new Intent(Intent.ACTION_DIAL, uri );
+                        startActivity( intent );
+                    }
+                }
+            });
+            alerta.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void carregarFormulario(){
-        long id = getIntent().getLongExtra("idProduto" , 0);
+        int id = getIntent().getIntExtra("idProduto" , 0);
         produto = ProdutoDAO.getProdutoById(this, id );
+        if ( produto == null )
+            Log.i("erroProd", "Prod é null" );
+
         etNome.setText( produto.nome );
         etPreco.setText( String.valueOf(produto.preco) );
     }
@@ -70,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
             etNome.setText("");
             etPreco.setText("");
-
-
-
         }
     }
 

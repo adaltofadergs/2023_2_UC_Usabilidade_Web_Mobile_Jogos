@@ -1,11 +1,14 @@
 package br.pro.adalto.appproduto;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,6 +62,24 @@ public class ProdutosActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Sobre");
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if( item.toString().equals("Sobre")){
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setMessage("App desenvolvido por Adalto Selau Sparremberger");
+            alerta.setPositiveButton("OK", null);
+            alerta.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void excluir(int posicao){
         Produto prod = (Produto) lvProdutos.getItemAtPosition( posicao );
         AlertDialog.Builder alerta = new AlertDialog.Builder(this);

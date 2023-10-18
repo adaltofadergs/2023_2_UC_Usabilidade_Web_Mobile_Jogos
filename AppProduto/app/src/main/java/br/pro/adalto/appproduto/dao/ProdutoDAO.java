@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +68,14 @@ public class ProdutoDAO {
         return lista;
     }
 
-    public static Produto getProdutoById(Context context, long idProd){
+
+
+
+    public static Produto getProdutoById(Context context, int idProd){
         Banco conn = new Banco(context);
         SQLiteDatabase db = conn.getReadableDatabase();
         try {
+            Toast.makeText(context, "erro 1", Toast.LENGTH_SHORT).show();
             Cursor cursor = db.rawQuery("SELECT * FROM produtos WHERE id = " + idProd, null);
             if ( cursor.getCount() > 0 ){
                 cursor.moveToFirst();
@@ -82,7 +88,8 @@ public class ProdutoDAO {
                 return prod;
             }
         }catch (Exception e){
-
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+            Log.i("erroProd", e.toString() );
         }
         return null;
     }

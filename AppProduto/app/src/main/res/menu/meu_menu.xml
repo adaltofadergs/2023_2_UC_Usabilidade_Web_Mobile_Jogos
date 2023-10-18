@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemMenuLimpar"
+        android:title="Limpar"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
+
+    <item
+        android:id="@+id/itemMenuSite"
+        android:title="Abrir Site"
+        android:icon="@android:drawable/ic_menu_info_details"/>
+
+    <item
+        android:id="@+id/itemMenuLigar"
+        android:title="Ligar"
+        android:icon="@android:drawable/ic_menu_call"/>
+
+    <item
+        android:id="@+id/itemMenuTelefone"
+        android:title="Abrir telefone"
+        android:icon="@android:drawable/ic_menu_agenda"/>
+
+
+</menu>
