@@ -27,9 +27,11 @@
             android:id="@+id/tvPrecoProduto"/>
 
     </LinearLayout>
-    <CheckBox
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/cbItemProduto"/>
+
+<!--    <CheckBox-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:id="@+id/cbItemProduto"/>-->
+
 </LinearLayout>

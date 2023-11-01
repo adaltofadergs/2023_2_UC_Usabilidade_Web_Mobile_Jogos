@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.pro.adalto.appproduto.dao.ProdutoDAO;
@@ -25,6 +26,8 @@ public class ProdutosActivity extends AppCompatActivity {
     private ListView lvProdutos;
     private Button btnAdicionar;
 
+    private List<Produto> listaProdutos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,9 @@ public class ProdutosActivity extends AppCompatActivity {
 
         lvProdutos = findViewById(R.id.lvProdutos);
         btnAdicionar = findViewById(R.id.btnAdicionar);
+        listaProdutos = new ArrayList<>();
+
+        carregarProdutos();
 
         btnAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +51,7 @@ public class ProdutosActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ProdutosActivity.this, MainActivity.class);
-                Produto p = (Produto) lvProdutos.getItemAtPosition( i );
+                Produto p = listaProdutos.get( i );
                 int id = p.id;
                 intent.putExtra("acao", "editar" );
                 intent.putExtra("idProduto", id );
@@ -81,7 +87,7 @@ public class ProdutosActivity extends AppCompatActivity {
     }
 
     private void excluir(int posicao){
-        Produto prod = (Produto) lvProdutos.getItemAtPosition( posicao );
+        Produto prod = this.listaProdutos.get( posicao );
         AlertDialog.Builder alerta = new AlertDialog.Builder(this);
         alerta.setTitle("ATENÇÃO!");
         alerta.setIcon( android.R.drawable.ic_dialog_alert  );
@@ -106,10 +112,10 @@ public class ProdutosActivity extends AppCompatActivity {
     }
 
     private void carregarProdutos(){
-        List<Produto> lista = ProdutoDAO.getProdutos(this);
+        this.listaProdutos = ProdutoDAO.getProdutos(this);
     //    ArrayAdapter adapter = new ArrayAdapter(this,
     //            android.R.layout.simple_list_item_1, lista);
-        AdapterProduto adapter = new  AdapterProduto(this, lista);
+        AdapterProduto adapter = new  AdapterProduto(this, this.listaProdutos);
         lvProdutos.setAdapter( adapter );
 
     }

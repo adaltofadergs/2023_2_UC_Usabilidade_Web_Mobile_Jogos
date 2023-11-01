@@ -52,7 +52,7 @@ public class AdapterProduto extends BaseAdapter {
             item.tvNome = view.findViewById(R.id.tvNomeProduto);
             item.tvPreco = view.findViewById(R.id.tvPrecoProduto);
             item.layout = view.findViewById(R.id.llItemProduto);
-            item.cbComprar = view.findViewById(R.id.cbItemProduto);
+        //    item.cbComprar = view.findViewById(R.id.cbItemProduto);
             view.setTag( item );
         }else{
             item = (ItemSuporte) view.getTag();
@@ -67,18 +67,18 @@ public class AdapterProduto extends BaseAdapter {
             //item.layout.setBackgroundColor( Color.WHITE );
         }
 
-        item.cbComprar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if ( b ){
-                    Toast.makeText(context, prod.nome + " selecionado.",
-                            Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(context, prod.nome + " desmarcado.",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+//        item.cbComprar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if ( b ){
+//                    Toast.makeText(context, prod.nome + " selecionado.",
+//                            Toast.LENGTH_LONG).show();
+//                }else {
+//                    Toast.makeText(context, prod.nome + " desmarcado.",
+//                            Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
         return view;
     }
@@ -86,7 +86,7 @@ public class AdapterProduto extends BaseAdapter {
     private class ItemSuporte{
         TextView tvNome, tvPreco;
         LinearLayout layout;
-        CheckBox cbComprar;
+    //    CheckBox cbComprar;
     }
 
 }
