@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff0"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/etCEP"
+        android:layout_width="329dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="40dp"
+        android:background="#fff"
+        android:ems="10"
+        android:hint="Digite o CEP:"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCEP"
+        android:layout_width="341dp"
+        android:layout_height="303dp"
+        android:layout_marginTop="28dp"
+        android:background="#fff"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnConsultar" />
+
+    <Button
+        android:id="@+id/btnConsultar"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:text="Consultar CEP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCEP" />
+</androidx.constraintlayout.widget.ConstraintLayout>
